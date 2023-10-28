@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
-import Meeting from '../types/Meeting';
+import { ref } from 'vue';
+import type Meeting from '../types/Meeting';
 import { v4 as uuidv4 } from 'uuid';
 
 let addingMeeting = ref(false);

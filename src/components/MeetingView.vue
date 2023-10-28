@@ -50,8 +50,8 @@ function handleDateInput(e: Event): void {
     <main>
         <li v-if="!editing">
             <h2>{{ meeting.name }}</h2>
-            <p>Date : {{ meeting.date.getDate() }}/{{ meeting.date.getMonth() + 1 }}/{{ meeting.date.getFullYear() }}</p>
-            <p>Time : {{ meeting.date.getHours() }}:{{ meeting.date.getMinutes() }}</p>
+            <p v-if="meeting.date">Date : {{ meeting.date.getDate() }}/{{ meeting.date.getMonth() + 1 }}/{{ meeting.date.getFullYear() }}</p>
+            <p v-if="meeting.date">Time : {{ meeting.date.getHours() }}:{{ meeting.date.getMinutes() }}</p>
             <button @click="handleRemoveClick()">Remove</button>
             <button @click="editMeeting()">Edit</button>
         </li>
