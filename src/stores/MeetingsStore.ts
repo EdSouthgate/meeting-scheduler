@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia';
 import Meeting from '../types/Meeting';
-import { Ref } from 'vue';
-import { useLocalStorage } from '@vueuse/core';
 
-const ls = <T>(id: string, defaultValue: T): Ref<T> => useLocalStorage(id, defaultValue);
 
 type StateShape = {
   meetings: Meeting[]

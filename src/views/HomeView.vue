@@ -30,7 +30,6 @@ function handleRemoveMeeting(meetingId: string) {
     <main>
         <div>
             <h1>View all meetings</h1>
-            <button @click=" meetingsStore.loadFromLocalStorage()">Fetch meetings</button>
             <ul>
                 <MeetingView v-for="meeting in meetings" v-bind:meeting="meeting" :key="meeting.id"
                     @save="handleSaveEvent($event)" @remove="handleRemoveMeeting($event)" />
