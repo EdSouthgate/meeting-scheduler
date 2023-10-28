@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import type { Ref } from 'vue';
 import MeetingView from '../components/MeetingView.vue';
+import NewMeeting from '../components/NewMeeting.vue';
 import type Meeting from '../types/Meeting';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,6 +15,10 @@ function handleSaveEvent(meeting: Meeting) {
         }
         return m;
     });
+}
+
+function handleSaveNewMeeting(meeting: Meeting) {
+    meetings.value = [...meetings.value, meeting];
 }
 
 function handleRemoveMeeting(meetingId: string) {
@@ -30,6 +35,9 @@ function handleRemoveMeeting(meetingId: string) {
                 <MeetingView v-for="meeting in meetings" v-bind:meeting="meeting" :key="meeting.id"
                     @save="handleSaveEvent($event)" @remove="handleRemoveMeeting($event)" />
             </ul>
+        </div>
+        <div>
+            <NewMeeting @save="handleSaveNewMeeting($event)" />
         </div>
     </main>
 </template>
