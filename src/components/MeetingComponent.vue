@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, defineProps, ref } from 'vue'
 import type Meeting from '../types/Meeting'
+import { toTwoDigits } from '../utils/utils';
 
 const props = defineProps<{ meeting: Meeting }>();
 
@@ -33,9 +34,6 @@ function handleSaveClicked(): void {
     editing.value = false;
 }
 
-function toTwoDigits(num: number): string {
-    return ("0" + num.toString()).slice(-2);
-}
 
 function handleDateInput(e: Event): void {
     if (e.target instanceof HTMLInputElement) {
@@ -47,21 +45,27 @@ function handleDateInput(e: Event): void {
 
 
 <template>
-    <main>
-        <li v-if="!editing">
-            <h2>{{ meeting.name }}</h2>
-            <p v-if="meeting.date">Date : {{ meeting.date.getDate() }}/{{ meeting.date.getMonth() + 1 }}/{{ meeting.date.getFullYear() }}</p>
-            <p v-if="meeting.date">Time : {{ meeting.date.getHours() }}:{{ meeting.date.getMinutes() }}</p>
-            <button @click="handleRemoveClick()">Remove</button>
-            <button @click="editMeeting()">Edit</button>
+        <li v-if="!editing" class="bg-white border-b-2 border-black p-4 flex justify-evenly relative">
+            <div class="w-2/3">
+                <h3 class="text-2xl">{{ meeting.name }}</h3>
+                <p v-if="meeting.date">Date : {{ meeting.date.getDate() }}/{{ meeting.date.getMonth() + 1 }}/{{ meeting.date.getFullYear() }}</p>
+                <p v-if="meeting.date">Time : {{ toTwoDigits(meeting.date.getHours()) }}:{{ toTwoDigits(meeting.date.getMinutes()) }}</p>
+            </div>
+            <div class="w-1/3 flex justify-evenly content-center h-100 items-center">
+                <button @click="editMeeting()" class="w-32 py-0 h-16 bg-slate-800 rounded text-gray-50">✏️ Edit</button>
+                <button @click="handleRemoveClick()" class="w-32 h-16 bg-slate-800 rounded text-gray-50">🗑️ Remove</button>
+            </div>
         </li>
-        <li v-else>
-            <input type="text" v-model="editedMeeting.name" />
-            <input type="datetime-local" :value="inputFormattedDate" @input="handleDateInput($event)"
-                :min="minInputFormattedDate" :max="maxInputFormattedDate" />
-            <button @click="handleSaveClicked()">Save</button>
+        <li v-else class="bg-gray-400 border-b-2 border-black p-4">
+            <form class="flex flex-col h-32 justify-around w-100 items-start">
+                <input  class="p-1 rounded w-64 text-base" type="text" v-model="editedMeeting.name" />
+                <input class="p-1 rounded w-64" type="datetime-local" :value="inputFormattedDate" @input="handleDateInput($event)"
+                    :min="minInputFormattedDate" :max="maxInputFormattedDate" />
+                <div>
+                    <button class="w-32 h-8 bg-slate-800 rounded text-gray-50" @click="handleSaveClicked()">Save</button>
+                </div>
+            </form>
         </li>
-    </main>
 </template>
 
 <style scoped>
