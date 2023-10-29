@@ -27,6 +27,12 @@ export const useMeetingsStore = defineStore('MeetingsStore', {
           meeting.date.getTime() <= nextWeek.getTime()
       })
     },
+    dailyMeetingsCount(): number {
+      return this.todaysMeetings.length
+    },
+    weeklyMeetingsCount(): number {
+      return this.thisWeeksMeetings.length
+    }
   },
   actions: {
     orderMeetingsByDate() {
