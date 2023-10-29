@@ -32,7 +32,7 @@ function handleSaveNewMeeting(meeting: Meeting) {
                 <MeetingView v-for="meeting in todaysMeetings" v-bind:meeting="meeting" :key="meeting.id"
                     @save="handleSaveEvent($event)" @remove="handleRemoveMeeting($event)" />
                 </template> 
-                <li v-else>No meetings scheduled today, please add some meetings to get started.</li>
+                <li v-else class="text-1xl font-sans text-gray-50 p-4">No meetings scheduled today, please add some meetings to get started.</li>
             </ul>
             <div>
                 <NewMeeting @save="handleSaveNewMeeting($event)" />
