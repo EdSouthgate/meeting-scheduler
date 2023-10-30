@@ -45,27 +45,31 @@ function handleDateInput(e: Event): void {
 
 
 <template>
-        <li v-if="!editing" class="bg-white border-b-2 border-black p-4 flex justify-evenly relative">
-            <div class="w-2/3">
-                <h3 class="text-2xl">{{ meeting.name }}</h3>
-                <p v-if="meeting.date">Date : {{ meeting.date.getDate() }}/{{ meeting.date.getMonth() + 1 }}/{{ meeting.date.getFullYear() }}</p>
-                <p v-if="meeting.date">Time : {{ toTwoDigits(meeting.date.getHours()) }}:{{ toTwoDigits(meeting.date.getMinutes()) }}</p>
+    <li v-if="!editing" class="bg-white border-b-2 border-black p-4 flex justify-evenly relative">
+        <div class="w-2/3">
+            <h3 class="text-2xl">{{ meeting.name }}</h3>
+            <p v-if="meeting.date">Date : {{ meeting.date.getDate() }}/{{ meeting.date.getMonth() + 1 }}/{{
+                meeting.date.getFullYear() }}</p>
+            <p v-if="meeting.date">Time : {{ toTwoDigits(meeting.date.getHours()) }}:{{
+                toTwoDigits(meeting.date.getMinutes()) }}</p>
+        </div>
+        <div class="w-1/3 flex justify-evenly content-center h-100 items-center">
+            <button @click="editMeeting()" class="w-32 py-0 h-16 bg-slate-800 rounded text-gray-50">✏️ Edit</button>
+            <button @click="handleRemoveClick()" class="w-32 h-16 bg-slate-800 rounded text-gray-50">🗑️ Remove</button>
+        </div>
+    </li>
+    <li v-else class="bg-gray-400 border-b-2 border-black p-4">
+        <form class="flex flex-col h-56 justify-evenly w-100 items-start">
+            <label for="name">Meeting name :</label>
+            <input id="name" class="p-1 rounded w-64 text-base text-gray-800" type="text" v-model="editedMeeting.name" />
+            <label for="date">Date and time :</label>
+            <input id="date" class="p-1 rounded w-64 text-gray-800" type="datetime-local" :value="inputFormattedDate"
+                @input="handleDateInput($event)" :min="minInputFormattedDate" :max="maxInputFormattedDate" />
+            <div>
+                <button class="w-32 h-8 bg-slate-800 rounded text-gray-50" @click="handleSaveClicked()">Save</button>
             </div>
-            <div class="w-1/3 flex justify-evenly content-center h-100 items-center">
-                <button @click="editMeeting()" class="w-32 py-0 h-16 bg-slate-800 rounded text-gray-50">✏️ Edit</button>
-                <button @click="handleRemoveClick()" class="w-32 h-16 bg-slate-800 rounded text-gray-50">🗑️ Remove</button>
-            </div>
-        </li>
-        <li v-else class="bg-gray-400 border-b-2 border-black p-4">
-            <form class="flex flex-col h-32 justify-around w-100 items-start">
-                <input  class="p-1 rounded w-64 text-base" type="text" v-model="editedMeeting.name" />
-                <input class="p-1 rounded w-64" type="datetime-local" :value="inputFormattedDate" @input="handleDateInput($event)"
-                    :min="minInputFormattedDate" :max="maxInputFormattedDate" />
-                <div>
-                    <button class="w-32 h-8 bg-slate-800 rounded text-gray-50" @click="handleSaveClicked()">Save</button>
-                </div>
-            </form>
-        </li>
+        </form>
+    </li>
 </template>
 
 <style scoped>

@@ -26,13 +26,14 @@ function handleSaveNewMeeting(meeting: Meeting) {
 <template>
     <main class="bg-gray-800 h-screen w-full flex justify-center">
         <div class="bg-gray-500 w-1/2 rounded">
-            <h2 class="text-2xl font-sans text-gray-50 p-4 border-b-2 border-black">Today</h2>
+            <h2 class="text-2xl font-sans text-gray-50 p-4 border-b-2 border-black">This week</h2>
             <ul>
                 <template v-if="thisWeeksMeetings.length > 0">
-                <MeetingView v-for="meeting in thisWeeksMeetings" v-bind:meeting="meeting" :key="meeting.id"
-                    @save="handleSaveEvent($event)" @remove="handleRemoveMeeting($event)" />
-                </template> 
-                <li v-else class="text-1xl font-sans text-gray-50 p-4">No meetings scheduled today, please add some meetings to get started.</li>
+                    <MeetingView v-for="meeting in thisWeeksMeetings" v-bind:meeting="meeting" :key="meeting.id"
+                        @save="handleSaveEvent($event)" @remove="handleRemoveMeeting($event)" />
+                </template>
+                <li v-else class="text-1xl font-sans text-gray-50 p-4">No meetings scheduled this week, please add some
+                    meetings to get started.</li>
             </ul>
             <div>
                 <NewMeeting @save="handleSaveNewMeeting($event)" />

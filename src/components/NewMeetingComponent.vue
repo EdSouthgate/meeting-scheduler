@@ -31,22 +31,22 @@ function handleDateInput(e: Event): void {
 function handleSaveMeeting($event: Event): void {
     errors.value = [];
     $event.preventDefault();
-    if(!editedMeeting.value.name) {
+    if (!editedMeeting.value.name) {
         errors.value.push('Name is required');
     }
-    if(!editedMeeting.value.date) {
+    if (!editedMeeting.value.date) {
         errors.value.push('Date is required');
     }
-    if(editedMeeting.value.date < todaysDate) {
+    if (editedMeeting.value.date < todaysDate) {
         errors.value.push('Date must be in the future');
     }
-    if(editedMeeting.value.name.length > 50) {
+    if (editedMeeting.value.name.length > 50) {
         errors.value.push('Name must be less than 50 characters');
     }
-    if(editedMeeting.value.name.length < 3) {
+    if (editedMeeting.value.name.length < 3) {
         errors.value.push('Name must be more than 3 characters');
     }
-    if(errors.value.length > 0) {
+    if (errors.value.length > 0) {
         return;
     }
     $emit('save', editedMeeting.value);
@@ -67,9 +67,13 @@ function handleSaveMeeting($event: Event): void {
         </div>
         <form v-else @submit="handleSaveMeeting($event)" class="flex justify-around p-8">
             <p v-for="error in errors" :key="error">{{ error }}</p>
-            <input type="text" v-model="editedMeeting.name" class="w-64 rounded p-1"/>
-            <input type="datetime-local" class="w-64 rounded p-1" @input="handleDateInput($event)" :min="minInputFormattedDate"
-                :max="maxInputFormattedDate" />
+            <label class="text-gray-50 text-1xl font-bold" for="name">Meeting name :
+                <input id="name" type="text" v-model="editedMeeting.name" class="w-64 rounded p-1" />
+            </label>
+            <label class="text-gray-50 text-1xl font-bold" for="date">Meeting date and time:
+                <input id="date" type="datetime-local" class="w-64 rounded p-1" @input="handleDateInput($event)"
+                    :min="minInputFormattedDate" :max="maxInputFormattedDate" />
+            </label>
             <button class="w-32 h-8 bg-slate-800 rounded text-gray-50" type="submit">Save</button>
         </form>
     </main>
