@@ -3,11 +3,12 @@ import MeetingView from '../components/MeetingComponent.vue';
 import type Meeting from '../types/Meeting';
 import { useMeetingsStore } from '../stores/MeetingsStore';
 import NewMeeting from '../components/NewMeetingComponent.vue';
+import { storeToRefs } from 'pinia';
 
 const meetingsStore = useMeetingsStore();
 meetingsStore.loadFromLocalStorage();
 
-const thisWeeksMeetings = meetingsStore.thisWeeksMeetings;
+const { thisWeeksMeetings } = storeToRefs(meetingsStore);
 
 function handleSaveEvent(meeting: Meeting) {
     meetingsStore.updateMeeting(meeting);

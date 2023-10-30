@@ -3,11 +3,12 @@ import MeetingView from '../components/MeetingComponent.vue';
 import type Meeting from '../types/Meeting';
 import NewMeeting from '../components/NewMeetingComponent.vue';
 import { useMeetingsStore } from '../stores/MeetingsStore';
+import { storeToRefs } from 'pinia';
 
 const meetingsStore = useMeetingsStore();
 meetingsStore.loadFromLocalStorage();
 
-const todaysMeetings = meetingsStore.todaysMeetings;
+const { todaysMeetings } = storeToRefs(meetingsStore);
 
 function handleSaveEvent(meeting: Meeting) {
     meetingsStore.updateMeeting(meeting);
@@ -29,10 +30,11 @@ function handleSaveNewMeeting(meeting: Meeting) {
             <h2 class="text-2xl font-sans text-gray-50 p-4 border-b-2 border-black">Today</h2>
             <ul>
                 <template v-if="todaysMeetings.length > 0">
-                <MeetingView v-for="meeting in todaysMeetings" v-bind:meeting="meeting" :key="meeting.id"
-                    @save="handleSaveEvent($event)" @remove="handleRemoveMeeting($event)" />
-                </template> 
-                <li v-else class="text-1xl font-sans text-gray-50 p-4">No meetings scheduled today, please add some meetings to get started.</li>
+                    <MeetingView v-for="meeting in todaysMeetings" v-bind:meeting="meeting" :key="meeting.id"
+                        @save="handleSaveEvent($event)" @remove="handleRemoveMeeting($event)" />
+                </template>
+                <li v-else class="text-1xl font-sans text-gray-50 p-4">No meetings scheduled today, please add some meetings
+                    to get started.</li>
             </ul>
             <div>
                 <NewMeeting @save="handleSaveNewMeeting($event)" />

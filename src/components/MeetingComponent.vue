@@ -61,7 +61,8 @@ function handleDateInput(e: Event): void {
     <li v-else class="bg-gray-400 border-b-2 border-black p-4">
         <form class="flex flex-col h-56 justify-evenly w-100 items-start">
             <label for="name">Meeting name :</label>
-            <input id="name" class="p-1 rounded w-64 text-base text-gray-800" type="text" v-model="editedMeeting.name" />
+            <input id="name" placeholder="Name" class="p-1 rounded w-64 text-base text-gray-800" type="text"
+                v-model="editedMeeting.name" />
             <label for="date">Date and time :</label>
             <input id="date" class="p-1 rounded w-64 text-gray-800" type="datetime-local" :value="inputFormattedDate"
                 @input="handleDateInput($event)" :min="minInputFormattedDate" :max="maxInputFormattedDate" />

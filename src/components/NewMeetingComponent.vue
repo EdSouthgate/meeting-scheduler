@@ -68,11 +68,12 @@ function handleSaveMeeting($event: Event): void {
         <form v-else @submit="handleSaveMeeting($event)" class="flex justify-around p-8">
             <p v-for="error in errors" :key="error">{{ error }}</p>
             <label class="text-gray-50 text-1xl font-bold" for="name">Meeting name :
-                <input id="name" type="text" v-model="editedMeeting.name" class="w-64 rounded p-1" />
+                <input id="name" placeholder="Name" type="text" v-model="editedMeeting.name"
+                    class="w-64 rounded p-1 text-gray-800" />
             </label>
             <label class="text-gray-50 text-1xl font-bold" for="date">Meeting date and time:
-                <input id="date" type="datetime-local" class="w-64 rounded p-1" @input="handleDateInput($event)"
-                    :min="minInputFormattedDate" :max="maxInputFormattedDate" />
+                <input id="date" type="datetime-local" class="w-64 rounded p-1 text-gray-800"
+                    @input="handleDateInput($event)" :min="minInputFormattedDate" :max="maxInputFormattedDate" />
             </label>
             <button class="w-32 h-8 bg-slate-800 rounded text-gray-50" type="submit">Save</button>
         </form>
